@@ -3,9 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>چت بات هوش مصنوعی سعدی</title>
+    <title>چت بات پیشرفته سعدی کد</title>
     <style>
-        /* استایل‌ها مانند کد قبلی */
+        :root {
+            --primary-bg: #0a0a0a;
+            --secondary-bg: #111111;
+            --accent-color: #00ff88;
+            --text-color: #e0e0e0;
+            --border-color: #333333;
+            --user-message-bg: #1a3a2a;
+            --bot-message-bg: #1a1a2a;
+            --hover-color: #00cc6a;
+            --error-color: #ff4444;
+        }
+
+        :root[data-theme="light"] {
+            --primary-bg: #f5f5f5;
+            --secondary-bg: #ffffff;
+            --accent-color: #007bff;
+            --text-color: #333333;
+            --border-color: #dddddd;
+            --user-message-bg: #e3f2fd;
+            --bot-message-bg: #f5f5f5;
+            --hover-color: #0056b3;
+            --error-color: #dc3545;
+        }
+        
         * {
             margin: 0;
             padding: 0;
@@ -14,39 +37,217 @@
         }
         
         body {
-            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            background-color: var(--primary-bg);
+            color: var(--text-color);
+            height: 100vh;
+            overflow: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        /* صفحه لندینگ */
+        .landing-page {
             height: 100vh;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
+            flex-direction: column;
+            background: linear-gradient(135deg, var(--primary-bg) 0%, var(--secondary-bg) 100%);
+            overflow-y: auto;
         }
         
-        .chat-container {
-            width: 100%;
-            max-width: 500px;
-            height: 600px;
-            background-color: white;
+        .landing-header {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo h1 {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            font-weight: 700;
+        }
+        
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            padding: 8px 12px;
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            background-color: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+        
+        .theme-toggle:hover {
+            border-color: var(--accent-color);
+        }
+        
+        .theme-icon {
+            font-size: 1.2rem;
+        }
+        
+        .download-app-btn {
+            background-color: var(--accent-color);
+            color: var(--primary-bg);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        
+        .download-app-btn:hover {
+            background-color: var(--hover-color);
+        }
+        
+        .hero-section {
+            flex: 1;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
-        }
-        
-        .chat-header {
-            background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
-            color: white;
-            padding: 20px;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            font-size: 1.2rem;
-            font-weight: bold;
+            padding: 40px 20px;
         }
         
-        .chat-messages {
-            flex: 1;
+        .hero-title {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, var(--accent-color), #00ccff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 600px;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+        
+        .ai-features {
+            display: flex;
+            gap: 30px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .feature-card {
+            background-color: var(--secondary-bg);
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            width: 250px;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--accent-color);
+        }
+        
+        .feature-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--accent-color);
+        }
+        
+        .feature-description {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            line-height: 1.5;
+        }
+        
+        .cta-section {
+            margin: 40px 0;
+            display: flex;
+            gap: 20px;
+        }
+        
+        .cta-btn {
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .install-btn {
+            background-color: var(--accent-color);
+            color: var(--primary-bg);
+            border: none;
+        }
+        
+        .install-btn:hover {
+            background-color: var(--hover-color);
+            transform: scale(1.05);
+        }
+        
+        .web-btn {
+            background-color: transparent;
+            color: var(--accent-color);
+            border: 2px solid var(--accent-color);
+        }
+        
+        .web-btn:hover {
+            background-color: rgba(0, 255, 136, 0.1);
+            transform: scale(1.05);
+        }
+        
+        .footer {
+            text-align: center;
             padding: 20px;
+            border-top: 1px solid var(--border-color);
+            background-color: var(--secondary-bg);
+        }
+        
+        /* صفحه چت */
+        .chat-container {
+            display: none;
+            flex-direction: column;
+            height: 100vh;
+            max-width: 1200px;
+            margin: 0 auto;
+            border-left: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
+        }
+        
+        .header {
+            background-color: var(--secondary-bg);
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .chat-area {
+            flex: 1;
             overflow-y: auto;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             gap: 15px;
@@ -54,8 +255,9 @@
         
         .message {
             max-width: 80%;
-            padding: 12px 16px;
+            padding: 12px 18px;
             border-radius: 18px;
+            line-height: 1.5;
             position: relative;
             animation: fadeIn 0.3s ease;
         }
@@ -67,121 +269,575 @@
         
         .user-message {
             align-self: flex-end;
-            background-color: #e3f2fd;
+            background-color: var(--user-message-bg);
             border-bottom-right-radius: 5px;
         }
         
         .bot-message {
             align-self: flex-start;
-            background-color: #f5f5f5;
+            background-color: var(--bot-message-bg);
             border-bottom-left-radius: 5px;
         }
         
-        .chat-input-container {
+        .error-message {
+            align-self: flex-start;
+            background-color: #3a1a1a;
+            border: 1px solid var(--error-color);
+            border-bottom-left-radius: 5px;
+        }
+        
+        .message-time {
+            font-size: 0.7rem;
+            opacity: 0.7;
+            margin-top: 5px;
+            text-align: right;
+        }
+        
+        .input-area {
             display: flex;
-            padding: 15px;
-            border-top: 1px solid #eee;
-            background-color: #f9f9f9;
+            padding: 15px 20px;
+            background-color: var(--secondary-bg);
+            border-top: 1px solid var(--border-color);
+            gap: 10px;
         }
         
-        .chat-input {
+        .input-area input {
             flex: 1;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
+            background-color: var(--primary-bg);
+            border: 1px solid var(--border-color);
             border-radius: 25px;
-            outline: none;
+            padding: 12px 20px;
+            color: var(--text-color);
             font-size: 1rem;
+            outline: none;
         }
         
-        .send-button {
-            background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
-            color: white;
+        .input-area input:focus {
+            border-color: var(--accent-color);
+        }
+        
+        .send-btn {
+            background-color: var(--accent-color);
+            color: var(--primary-bg);
             border: none;
             border-radius: 50%;
-            width: 45px;
-            height: 45px;
-            margin-right: 10px;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .send-btn:hover {
+            background-color: var(--hover-color);
+        }
+        
+        .send-btn:disabled {
+            background-color: var(--border-color);
+            cursor: not-allowed;
+        }
+        
+        .send-icon {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
         }
         
         .typing-indicator {
             display: none;
             align-self: flex-start;
-            background-color: #f5f5f5;
-            padding: 12px 16px;
+            background-color: var(--bot-message-bg);
+            padding: 12px 18px;
             border-radius: 18px;
             border-bottom-left-radius: 5px;
-            color: #888;
-            font-style: italic;
+        }
+        
+        .typing-dots {
+            display: flex;
+            gap: 4px;
+        }
+        
+        .typing-dots span {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--text-color);
+            opacity: 0.6;
+            animation: typing 1.4s infinite ease-in-out;
+        }
+        
+        .typing-dots span:nth-child(1) { animation-delay: 0s; }
+        .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+        
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-5px); }
+        }
+        
+        .api-status {
+            display: flex;
+            gap: 15px;
+            font-size: 0.8rem;
+            margin-top: 5px;
+            justify-content: center;
+        }
+        
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+        
+        .status-active {
+            background-color: var(--accent-color);
+        }
+        
+        .status-inactive {
+            background-color: var(--error-color);
+        }
+        
+        /* اسکرول بار سفارشی */
+        .chat-area::-webkit-scrollbar,
+        .landing-page::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .chat-area::-webkit-scrollbar-track,
+        .landing-page::-webkit-scrollbar-track {
+            background: var(--primary-bg);
+        }
+        
+        .chat-area::-webkit-scrollbar-thumb,
+        .landing-page::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 3px;
+        }
+        
+        .chat-area::-webkit-scrollbar-thumb:hover,
+        .landing-page::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-color);
+        }
+        
+        /* طراحی ریسپانسیو */
+        @media (max-width: 768px) {
+            .message {
+                max-width: 90%;
+            }
+            
+            .header {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .ai-features {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .cta-section {
+                flex-direction: column;
+                align-items: center;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="chat-container">
-        <div class="chat-header">چت بات هوش مصنوعی 🤖</div>
-        <div class="chat-messages" id="chatMessages">
-            <div class="bot-message">سلام 👋 من هوش مصنوعی هستم. چطور می‌تونم کمک کنم؟</div>
+    <!-- صفحه لندینگ -->
+    <div class="landing-page" id="landingPage">
+        <div class="landing-header">
+            <div class="logo">
+                <h1>چت بات پیشرفته سعدی کد</h1>
+            </div>
+            <div class="header-controls">
+                <div class="theme-toggle" id="themeToggle">
+                    <span class="theme-icon" id="themeIcon">🌙</span>
+                    <span id="themeText">حالت شب</span>
+                </div>
+                <button class="download-app-btn" onclick="scrollToDownload()">دانلود اپلیکیشن</button>
+            </div>
         </div>
-        <div class="typing-indicator" id="typingIndicator">در حال پردازش...</div>
-        <div class="chat-input-container">
-            <input type="text" class="chat-input" id="chatInput" placeholder="پیام خود را بنویسید...">
-            <button class="send-button" id="sendButton">➤</button>
+        
+        <div class="hero-section">
+            <h1 class="hero-title">مدل هوش مصنوعی سعدی کد</h1>
+            <p class="hero-subtitle">
+                با چت بات پیشرفته سعدی کد، قدرتمندترین هوش مصنوعی را در دستان خود داشته باشید. 
+                طراحی شده توسط سعدی اسفندیار با قابلیت‌های منحصر به فرد و رابط کاربری پیشرفته.
+            </p>
+            
+            <div class="ai-features">
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3 class="feature-title">هوش مصنوعی پیشرفته</h3>
+                    <p class="feature-description">استفاده از پیشرفته‌ترین مدل زبانی برای پاسخ‌های دقیق و هوشمند</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3 class="feature-title">پاسخ‌های سریع</h3>
+                    <p class="feature-description">سرعت بالا در پردازش و ارائه پاسخ بدون تأخیر قابل توجه</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3 class="feature-title">حریم خصوصی</h3>
+                    <p class="feature-description">اطمینان از امنیت کامل داده‌ها و محرمانگی اطلاعات کاربران</p>
+                </div>
+            </div>
+            
+            <div class="cta-section" id="downloadSection">
+                <button class="cta-btn install-btn">نصب اپلیکیشن</button>
+                <button class="cta-btn web-btn" onclick="showChatPage()">استفاده در وب</button>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div>طراحی و توسعه توسط تیم سعدی کد - سعدی اسفندیار - ۲۰۲۵</div>
+        </div>
+    </div>
+    
+    <!-- صفحه چت -->
+    <div class="chat-container" id="chatContainer">
+        <div class="header">
+            <div class="logo">
+                <h1>مدل هوش مصنوعی سعدی کد</h1>
+                <span>طراحی شده توسط سعدی اسفندیار - ۲۰۲۵</span>
+            </div>
+            <div class="theme-toggle" id="chatThemeToggle">
+                <span class="theme-icon" id="chatThemeIcon">🌙</span>
+                <span id="chatThemeText">حالت شب</span>
+            </div>
+        </div>
+        
+        <div class="chat-area" id="chatArea">
+            <div class="message bot-message">
+                سلام! من مدل هوش مصنوعی سعدی کد هستم. سعدی اسفندیار من را طراحی کرده است. چگونه می‌توانم به شما کمک کنم؟
+                <div class="message-time">اکنون</div>
+            </div>
+        </div>
+        
+        <div class="typing-indicator" id="typingIndicator">
+            <div class="typing-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="input-area">
+            <input type="text" id="userInput" placeholder="پیام خود را اینجا تایپ کنید...">
+            <button class="send-btn" id="sendBtn" title="ارسال پیام">
+                <svg class="send-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 21L23 12L2 3V10L17 12L2 14V21Z" fill="currentColor"/>
+                </svg>
+            </button>
+        </div>
+        
+        <div class="footer">
+            <div>طراحی و توسعه توسط تیم سعدی کد - سعدی اسفندیار - ۲۰۲۵</div>
+            <div class="api-status">
+                <div class="status-item">
+                    <div class="status-dot status-active" id="apiStatus"></div>
+                    <span>وضعیت API</span>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
-        const CLOUDFLARE_WORKER_URL = 'https://your-worker.your-subdomain.workers.dev'; // آدرس Worker شما
+        // مدیریت تم
+        let currentTheme = 'dark'; // تم پیش‌فرض: شب
         
-        document.addEventListener('DOMContentLoaded', function() {
-            const chatMessages = document.getElementById('chatMessages');
-            const chatInput = document.getElementById('chatInput');
-            const sendButton = document.getElementById('sendButton');
-            const typingIndicator = document.getElementById('typingIndicator');
-            
-            function addMessage(text, isUser) {
-                const messageDiv = document.createElement('div');
-                messageDiv.classList.add('message');
-                messageDiv.classList.add(isUser ? 'user-message' : 'bot-message');
-                messageDiv.textContent = text;
-                chatMessages.appendChild(messageDiv);
-                chatMessages.scrollTop = chatMessages.scrollHeight;
+        // بارگذاری تم ذخیره شده از localStorage
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('sadiCodeTheme');
+            if (savedTheme) {
+                currentTheme = savedTheme;
+                applyTheme(currentTheme);
             }
+        }
+        
+        // اعمال تم
+        function applyTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
             
-            async function sendMessage() {
-                const message = chatInput.value.trim();
+            // به‌روزرسانی آیکون و متن
+            const themeIcon = document.getElementById('themeIcon');
+            const themeText = document.getElementById('themeText');
+            const chatThemeIcon = document.getElementById('chatThemeIcon');
+            const chatThemeText = document.getElementById('chatThemeText');
+            
+            if (theme === 'light') {
+                themeIcon.textContent = '☀️';
+                themeText.textContent = 'حالت روز';
+                chatThemeIcon.textContent = '☀️';
+                chatThemeText.textContent = 'حالت روز';
+            } else {
+                themeIcon.textContent = '🌙';
+                themeText.textContent = 'حالت شب';
+                chatThemeIcon.textContent = '🌙';
+                chatThemeText.textContent = 'حالت شب';
+            }
+        }
+        
+        // تغییر تم
+        function toggleTheme() {
+            currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            applyTheme(currentTheme);
+            localStorage.setItem('sadiCodeTheme', currentTheme);
+        }
+        
+        // تابع برای اسکرول به بخش دانلود
+        function scrollToDownload() {
+            document.getElementById('downloadSection').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        }
+        
+        // تابع برای نمایش صفحه چت
+        function showChatPage() {
+            document.getElementById('landingPage').style.display = 'none';
+            document.getElementById('chatContainer').style.display = 'flex';
+            initChat();
+        }
+        
+        // تابع مقداردهی اولیه چت
+        function initChat() {
+            const chatArea = document.getElementById('chatArea');
+            const userInput = document.getElementById('userInput');
+            const sendBtn = document.getElementById('sendBtn');
+            const typingIndicator = document.getElementById('typingIndicator');
+            const apiStatus = document.getElementById('apiStatus');
+            
+            let isRequestInProgress = false;
+            
+            // تست اتصال به API در ابتدا
+            testAPIConnection();
+            
+            // ارسال پیام با کلیک روی دکمه
+            sendBtn.addEventListener('click', sendMessage);
+            
+            // ارسال پیام با کلید اینتر
+            userInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+            
+            // تابع ارسال پیام
+            function sendMessage() {
+                if (isRequestInProgress) return;
+                
+                const message = userInput.value.trim();
                 if (message === '') return;
                 
-                addMessage(message, true);
-                chatInput.value = '';
+                // اضافه کردن پیام کاربر
+                addMessage(message, 'user');
+                userInput.value = '';
                 
-                typingIndicator.style.display = 'block';
-                chatMessages.scrollTop = chatMessages.scrollHeight;
+                // غیرفعال کردن دکمه ارسال و ورودی
+                setInputState(false);
                 
+                // نمایش نشانگر تایپ
+                showTypingIndicator();
+                
+                // ارسال به API
+                sendToAI(message);
+            }
+            
+            // ارسال به API هوش مصنوعی با استفاده از Proxy برای دور زدن CORS
+            async function sendToAI(message) {
                 try {
-                    // ارسال درخواست به Cloudflare Worker
-                    const response = await fetch(CLOUDFLARE_WORKER_URL, {
-                        method: 'POST',
+                    // استفاده از encodeURIComponent برای کدگذاری صحیح متن
+                    const encodedMessage = encodeURIComponent(message);
+                    const apiUrl = `https://gpt4.api-sina-free.workers.dev/gpt4?text=${encodedMessage}`;
+                    
+                    console.log('در حال ارسال درخواست به:', apiUrl);
+                    
+                    // استفاده از no-cors mode اگر CORS مشکل دارد
+                    const response = await fetch(apiUrl, {
+                        method: 'GET',
                         headers: {
-                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
                         },
-                        body: JSON.stringify({ message: message })
+                        mode: 'cors'
                     });
                     
+                    console.log('وضعیت پاسخ:', response.status, response.statusText);
+                    
+                    if (!response.ok) {
+                        throw new Error(`خطا در دریافت پاسخ: ${response.status} ${response.statusText}`);
+                    }
+                    
                     const data = await response.json();
-                    typingIndicator.style.display = 'none';
-                    addMessage(data.reply, false);
+                    console.log('پاسخ دریافت شد:', data);
+                    
+                    // نمایش پاسخ
+                    hideTypingIndicator();
+                    
+                    if (data && (data.result || data.Result)) {
+                        addMessage(data.result || data.Result, 'bot');
+                    } else {
+                        addMessage('پاسخی دریافت نشد. ساختار پاسخ غیرمنتظره است.', 'error');
+                    }
+                    
+                    setInputState(true);
+                    updateAPIStatus(true);
+                    
                 } catch (error) {
-                    typingIndicator.style.display = 'none';
-                    addMessage("⚠️ خطا در ارتباط با سرور", false);
+                    console.error('خطا در ارتباط با API:', error);
+                    hideTypingIndicator();
+                    
+                    // تلاش با روش جایگزین - استفاده از JSONP یا Proxy
+                    try {
+                        await tryAlternativeMethod(message);
+                    } catch (fallbackError) {
+                        console.error('روش جایگزین نیز شکست خورد:', fallbackError);
+                        addMessage(`خطا در ارتباط با سرور: ${error.message}. لطفاً دوباره تلاش کنید.`, 'error');
+                        setInputState(true);
+                        updateAPIStatus(false);
+                    }
                 }
             }
             
-            sendButton.addEventListener('click', sendMessage);
-            chatInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') sendMessage();
-            });
+            // روش جایگزین برای دور زدن CORS
+            async function tryAlternativeMethod(message) {
+                // استفاده از CORS Proxy
+                const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+                const apiUrl = `https://gpt4.api-sina-free.workers.dev/gpt4?text=${encodeURIComponent(message)}`;
+                const fullUrl = proxyUrl + apiUrl;
+                
+                console.log('تلاش با CORS Proxy:', fullUrl);
+                
+                const response = await fetch(fullUrl, {
+                    method: 'GET',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`خطا در دریافت پاسخ از Proxy: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                console.log('پاسخ از Proxy دریافت شد:', data);
+                
+                hideTypingIndicator();
+                
+                if (data && (data.result || data.Result)) {
+                    addMessage(data.result || data.Result, 'bot');
+                } else {
+                    addMessage('پاسخی از طریق Proxy دریافت نشد.', 'error');
+                }
+                
+                setInputState(true);
+                updateAPIStatus(true);
+            }
             
-            chatInput.focus();
+            // تست اتصال به API
+            async function testAPIConnection() {
+                try {
+                    const testResponse = await fetch('https://gpt4.api-sina-free.workers.dev/gpt4?text=سلام');
+                    updateAPIStatus(testResponse.ok);
+                    
+                    if (testResponse.ok) {
+                        const testData = await testResponse.json();
+                        console.log('تست API موفق:', testData);
+                    }
+                } catch (error) {
+                    console.error('تست API ناموفق:', error);
+                    updateAPIStatus(false);
+                }
+            }
+            
+            // به روزرسانی وضعیت API
+            function updateAPIStatus(isActive) {
+                apiStatus.className = 'status-dot ' + (isActive ? 'status-active' : 'status-inactive');
+            }
+            
+            // تنظیم وضعیت ورودی
+            function setInputState(enabled) {
+                userInput.disabled = !enabled;
+                sendBtn.disabled = !enabled;
+                isRequestInProgress = !enabled;
+                
+                if (enabled) {
+                    userInput.focus();
+                }
+            }
+            
+            // اضافه کردن پیام به چت
+            function addMessage(text, sender) {
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('message');
+                
+                if (sender === 'user') {
+                    messageDiv.classList.add('user-message');
+                } else if (sender === 'error') {
+                    messageDiv.classList.add('error-message');
+                } else {
+                    messageDiv.classList.add('bot-message');
+                }
+                
+                const messageContent = document.createElement('div');
+                messageContent.textContent = text;
+                messageDiv.appendChild(messageContent);
+                
+                const timeDiv = document.createElement('div');
+                timeDiv.classList.add('message-time');
+                timeDiv.textContent = getCurrentTime();
+                messageDiv.appendChild(timeDiv);
+                
+                chatArea.appendChild(messageDiv);
+                scrollToBottom();
+            }
+            
+            // نمایش نشانگر تایپ
+            function showTypingIndicator() {
+                typingIndicator.style.display = 'block';
+                scrollToBottom();
+            }
+            
+            // پنهان کردن نشانگر تایپ
+            function hideTypingIndicator() {
+                typingIndicator.style.display = 'none';
+            }
+            
+            // اسکرول به پایین چت
+            function scrollToBottom() {
+                chatArea.scrollTop = chatArea.scrollHeight;
+            }
+            
+            // دریافت زمان فعلی
+            function getCurrentTime() {
+                const now = new Date();
+                return `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+            }
+            
+            // تنظیم فوکوس روی ورودی
+            userInput.focus();
+        }
+        
+        // بارگذاری اولیه تم و تنظیم رویدادها
+        document.addEventListener('DOMContentLoaded', function() {
+            loadTheme();
+            
+            // اضافه کردن رویداد کلیک برای تغییر تم
+            document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+            document.getElementById('chatThemeToggle').addEventListener('click', toggleTheme);
         });
     </script>
 </body>
